@@ -3,7 +3,7 @@
 Let's create a CRUD app using the following technologies:
 
 - **Frontend**: Use React, Angular, Astro, or any other frontend framework/library. D'you want to use vanilla JS? that's fine too.
-- **API**: RESTful API documented with Swagger.
+- **API**: RESTful API documented with [Swagger](https://swagger.io/).
 - **Backend**: A microservice written in Node.js, Go, or Python. It doesn't matter the language or framework you use.
 - **Database**: MongoDB.
 
@@ -53,6 +53,15 @@ Include the following endpoints:
 - `DELETE /blocks/:id` Deletes a block.
 
 Have to be documented with Swagger (use this tool locally).
+
+##### What's Swagger?
+
+A bunch of tools for designing APIs. You'll need to document your API using the OpenAPI Specification (OAS).
+
+**Useful links**:
+
+- [Basic Structure](https://swagger.io/docs/specification/basic-structure/) helps you understand how to describe your API using the OAS.
+- [Swagger Editor](https://editor.swagger.io/) online tool to apply what you've learned about the OAS. Also, try out your endpoints by sending requests to them.
 
 Also, you must accept an `Authorization` header with a `Bearer` token. If a request isn't authenticated then backends cannot be hit.
 
