@@ -76,6 +76,6 @@ Focus on your preferred role. If you're into frontend, user experience and UI sh
 
 ### How to solve this test
 
-Fork this repository and create a new branch with your solution. Once you're done, open a pull request to this repository.
+Fork this repository and create a new branch with your solution. Once you're done, open a pull request right here :)
 
 ✨ Have fun! ✨
