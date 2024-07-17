@@ -11,7 +11,7 @@ Let's create a CRUD app using the following technologies:
 
 A `block` is a piece of work that has some data associated with it. A block's _value_ determines how much progress has been made on. When it is completed, its value is 100.
 
-**Fun fact**: blocks are a real structure used in Bimtrazar, although the real ones are not as fun as these. (tons of data on 'em)
+**Fun fact**: blocks are a real structure used in Bimtrazer, although real ones aren't as fun as these. (tons of data on 'em)
 
 ### Requirements
 
