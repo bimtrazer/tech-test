@@ -66,6 +66,10 @@ Also, you must accept an `Authorization` header with a `Bearer` token. If a requ
 - Value is a number between 0 and 100 (inclusive).
 - Value cannot be updated with a smaller value than the current one.
 
+#### **Architecture**
+
+![Architecture Schema](/assets/architecture-schema.png)
+
 ### Evaluation Criteria
 
 Focus on your preferred role. If you're into frontend, user experience and UI should be your best. But if you're a backend person make sure your code is clean and scalable. Stick to best practices for your area.
