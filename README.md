@@ -2,9 +2,9 @@
 
 Let's create a CRUD app using the following technologies:
 
-- **Frontend**, use React, Angular, Astro, or any other frontend framework/library. D'you want to use vanilla JS? that's fine too.
+- **Frontend**, use React, Angular, Astro, or any other frontend framework/library. D'you want to try vanilla JS? that's fine too.
 - **API** RESTful documented with [Swagger](https://swagger.io/).
-- **Backend**, a microservice written in Node.js, Go, or Python. It doesn't matter the language or framework you use.
+- **Backend**, a microservice written in Node.js, Go, or Python. It doesn't matter the language or framework.
 - **Database** MongoDB.
 
 ### Context
@@ -54,7 +54,7 @@ Include the following endpoints:
 - `PUT /blocks/:id` Updates a block.
 - `DELETE /blocks/:id` Deletes a block.
 
-Have to be documented with Swagger (use this tool locally).
+Have to be documented with Swagger.
 
 ##### What's Swagger?
 
