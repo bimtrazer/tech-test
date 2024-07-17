@@ -47,10 +47,10 @@ Through this app, the user should be able to create, read, update, and delete a 
 
 Include the following endpoints:
 
-- `POST /blocks`: Creates a new block.
-- `GET /blocks`: Returns all blocks.
-- `PUT /blocks/:id`: Updates a block.
-- `DELETE /blocks/:id`: Deletes a block.
+- `POST /blocks` Creates a new block.
+- `GET /blocks` Returns all blocks.
+- `PUT /blocks/:id` Updates a block.
+- `DELETE /blocks/:id` Deletes a block.
 
 Have to be documented with Swagger (use this tool locally).
 
