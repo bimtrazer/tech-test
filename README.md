@@ -2,14 +2,16 @@
 
 Let's create a CRUD app using the following technologies:
 
-- **Frontend**: Use React, Angular, Astro, or any other frontend framework/library. D'you want to use vanilla JS? that's fine too.
-- **API**: RESTful API documented with [Swagger](https://swagger.io/).
-- **Backend**: A microservice written in Node.js, Go, or Python. It doesn't matter the language or framework you use.
-- **Database**: MongoDB.
+- **Frontend**, use React, Angular, Astro, or any other frontend framework/library. D'you want to use vanilla JS? that's fine too.
+- **API** RESTful documented with [Swagger](https://swagger.io/).
+- **Backend**, a microservice written in Node.js, Go, or Python. It doesn't matter the language or framework you use.
+- **Database** MongoDB.
 
 ### Context
 
 A `block` is a piece of work that has some data associated with it. A block's _value_ determines how much progress has been made on. When it is completed, its value is 100.
+
+**Fun fact**: blocks are a real structure used in Bimtrazar, although the real ones are not as fun as these. (tons of data on 'em)
 
 ### Requirements
 
@@ -61,7 +63,7 @@ A bunch of tools for designing APIs. You'll need to document your API using the 
 **Useful links**:
 
 - [Basic Structure](https://swagger.io/docs/specification/basic-structure/) helps you understand how to describe your API using the OAS.
-- [Swagger Editor](https://editor.swagger.io/) online tool to apply what you've learned about the OAS. Also, try out your endpoints by sending requests to them.
+- [Swagger Editor](https://editor.swagger.io/) online tool to apply what you've learned about the OAS. After writing your own docs, try out your endpoints by sending requests to them.
 
 Also, you must accept an `Authorization` header with a `Bearer` token. If a request isn't authenticated then backends cannot be hit.
 
@@ -76,6 +78,8 @@ Also, you must accept an `Authorization` header with a `Bearer` token. If a requ
 - Value cannot be updated with a smaller value than the current one.
 
 #### **Architecture**
+
+_Watch out!_ Note that the API and the backend are two different things. The first one is the interface that the frontend will consume along with the token validation. The second one is the business logic that will be used by the API. Frontend <u>can't</u> access the backend directly.
 
 ![Architecture Schema](/assets/architecture-schema.png)
 
