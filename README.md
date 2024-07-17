@@ -13,9 +13,9 @@ A `block` is a piece of work that has some data associated with it. A block's _v
 
 ### Requirements
 
-**Data Structure**
+#### **Data Structure**
 
-A `Block` entity should have the following fields:
+The entity should have the following fields:
 
 ```TypeScript
 type Block = {
@@ -35,15 +35,15 @@ We give you a sample here:
   "description": "SUPER FANCY STAIRS",
   "startDate": "2024-06-03T00:00:00",
   "endDate": "2024-06-03T23:59:59",
-  "value": 100
+  "value": 75
 }
 ```
 
-**Frontend**
+#### **Frontend**
 
 Through this app, the user should be able to create, read, update, and delete a `Block` entity.
 
-**API**
+#### **API**
 
 Include the following endpoints:
 
@@ -56,7 +56,7 @@ Have to be documented with Swagger (use this tool locally).
 
 Also, you must accept an `Authorization` header with a `Bearer` token. If a request isn't authenticated then backends cannot be hit.
 
-**Backend**
+#### **Backend**
 
 - Description max length: 40 characters.
 - Description is unique among all blocks.
@@ -69,3 +69,9 @@ Also, you must accept an `Authorization` header with a `Bearer` token. If a requ
 ### Evaluation Criteria
 
 Focus on your preferred role. If you're into frontend, user experience and UI have to be your best. But if you're a backend person, make sure your code is clean and scalable. Stick to best practices for your area.
+
+### How to solve this test
+
+Fork this repository and create a new branch with your solution. Once you're done, open a pull request to this repository.
+
+✨ Have fun! ✨
