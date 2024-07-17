@@ -2,10 +2,14 @@
 
 Let's create a CRUD app using the following technologies:
 
-- Frontend: Use React, Angular, Astro or any other frontend framework/libary. D'you want to use vanilla JS? that's fine too.
-- API: RESTful API documented with Swagger.
-- Backend: A microservice written in Node.js, Go, or Python. It doesn't matter the language or framework you use.
-- Database: MongoDB.
+- **Frontend**: Use React, Angular, Astro, or any other frontend framework/library. D'you want to use vanilla JS? that's fine too.
+- **API**: RESTful API documented with Swagger.
+- **Backend**: A microservice written in Node.js, Go, or Python. It doesn't matter the language or framework you use.
+- **Database**: MongoDB.
+
+### Context
+
+A `block` is a piece of work that has some data associated with it. A block's _value_ determines how much progress has been made on. When it is completed, its value is 100.
 
 ### Requirements
 
@@ -50,13 +54,17 @@ Include the following endpoints:
 
 Have to be documented with Swagger (use this tool locally).
 
-Also, you must accept a `Authorization` header with a `Bearer` token. If a request isn't authenticated then backends cannot be hit.
+Also, you must accept an `Authorization` header with a `Bearer` token. If a request isn't authenticated then backends cannot be hit.
 
 **Backend**
 
 - Description max length: 40 characters.
-- Start date cannot be greater than end date (both dates are inclusive).
+- Description is unique among all blocks.
+- Description cannot be updated, once it's set it turns immutable.
+- Start date cannot be greater than end date.
+- End date cannot be smaller than start date.
 - Value is a number between 0 and 100 (inclusive).
+- Value cannot be updated with a smaller value than the current one.
 
 ### Evaluation Criteria
 
