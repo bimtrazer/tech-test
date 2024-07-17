@@ -68,7 +68,7 @@ Also, you must accept an `Authorization` header with a `Bearer` token. If a requ
 
 ### Evaluation Criteria
 
-Focus on your preferred role. If you're into frontend, user experience and UI have to be your best. But if you're a backend person, make sure your code is clean and scalable. Stick to best practices for your area.
+Focus on your preferred role. If you're into frontend, user experience and UI should be your best. But if you're a backend person make sure your code is clean and scalable. Stick to best practices for your area.
 
 ### How to solve this test
 
