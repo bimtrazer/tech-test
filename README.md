@@ -9,7 +9,7 @@ Let's create a CRUD app using the following technologies:
 
 ### Context
 
-A `block` is a piece of work that has some data associated with it. A block's _value_ determines how much progress has been made on. When it is completed, its value is 100.
+A `block` is a piece of work that has some data associated with it. A block's _progress_ determines how much advance has been made on. When it is completed, its value is 100.
 
 **Fun fact**: blocks are a real structure used in Bimtrazer, although real ones aren't as fun as these. (tons of data on 'em)
 
@@ -25,7 +25,7 @@ type Block = {
   description: string;
   startDate: string;
   endDate: string;
-  value: number;
+  progress: number;
 };
 ```
 
@@ -37,7 +37,7 @@ We give you a sample here:
   "description": "SUPER FANCY STAIRS",
   "startDate": "2024-06-03T00:00:00",
   "endDate": "2024-06-03T23:59:59",
-  "value": 75
+  "progress": 75
 }
 ```
 
@@ -74,8 +74,8 @@ Also, you must accept an `Authorization` header with a `Bearer` token. If a requ
 - Description cannot be updated, once it's set it turns immutable.
 - Start date cannot be greater than end date.
 - End date cannot be smaller than start date.
-- Value is a number between 0 and 100 (inclusive).
-- Value cannot be updated with a smaller value than the current one.
+- Progress is a number between 0 and 100 (inclusive).
+- Progress cannot be updated with a smaller value than the current one.
 
 #### **Architecture**
 
