@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import EditBlockForm from "../EditBlockForm/EditBlockForm";
-
+import styles from "./BlockCard.module.css";
 const BlockCard = ({ block }) => {
   const [isEditing, setIsEditing] = useState(false);
 
@@ -13,10 +13,17 @@ const BlockCard = ({ block }) => {
   };
 
   return (
-    <div>
-      <button onClick={handleEditClick} title="Editar Bloque">
-        🖍
-      </button>
+    <div className={styles.container}>
+      <div
+          className={styles.buttonContainer}
+          >
+        <button
+          onClick={handleEditClick}
+          title="Editar Bloque"
+        >
+          🖍
+        </button>
+      </div>
       <h3>{block.description}</h3>
       <p>Start Date: {block.startDate}</p>
       <p>End Date: {block.endDate}</p>

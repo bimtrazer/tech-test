@@ -1,0 +1,12 @@
+.container{
+    border: solid 2px #E3F2FD;
+    border-radius: 20px;
+    width: 90%;
+    height: 100%;
+}
+.buttonContainer{
+    display: flex;
+    justify-content: end;
+    width: 100%;
+    padding: 10px 15px 0 0;
+}
