@@ -1,9 +1,14 @@
 const express = require('express');
 const mongoose = require('mongoose');
 require('dotenv').config();
+const blockRoutes = require("./routes/blocks");
 
 const app = express ();
 const port = process.env.PORT || 3000;
+
+//middleware para las rutas
+app.use(express.json());
+app.use('/api', blockRoutes);
 
 //rutas
 app.get('/', (req, res) => {
