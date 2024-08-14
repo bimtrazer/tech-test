@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { createBlock } from "../services/api";
+import Swal from "sweetalert2";
 const BlockForm = () => {
   const [token, setToken] = useState("token");
   const [newBlock, setNewBlock] = useState({
@@ -8,12 +9,37 @@ const BlockForm = () => {
     endDate: "",
     progress: "",
   });
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const { startDate, endDate } = newBlock;
+
+    // Validación de fechas
+    if (new Date(startDate) >= new Date(endDate)) {
+      Swal.fire({
+        title: "Error!",
+        text: "La fecha de inicio debe ser anterior a la fecha de culminación",
+        icon: "error",
+        confirmButtonText: "Entendido",
+      });
+      return;
+    }
+
     try {
-      createBlock(newBlock,token);
+      const response = await createBlock(newBlock, token);
+      Swal.fire({
+        title: "Éxito!",
+        text: "Bloque creado correctamente",
+        icon: "success",
+        confirmButtonText: "Cool",
+      });
     } catch (error) {
-        
+      Swal.fire({
+        title: "Error!",
+        text: "No tenemos conexión :(",
+        icon: "error",
+        confirmButtonText: "Entendido",
+      });
     }
   };
 
