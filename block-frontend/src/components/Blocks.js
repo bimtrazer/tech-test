@@ -40,6 +40,42 @@ const Blocks = () => {
                         </div>
                     </div>
                 </div>
+
+                <div className='row mt-3'>
+                    <div className='col-12 col-lg-8 offset-0 offset-lg-2'>
+                        <div className='table-responsive'>
+                            <table className='table table-borderer'>
+                                <thead>
+                                    <tr> <th>#</th>  <th>ID MONGO DB</th>  <th>DESCRIPCIÓN</th>  <th>HORA CREACIÓN</th> <th>HORA FINALIZACIÓN</th>  <th>PROGRESS</th>  <th>OPCIONES</th> </tr>
+                                </thead>
+
+                                <tbody className='table-group-divider'>
+                                    {blocks.map((block, i)=>(
+                                        <tr key= {block.id} >
+                                            <td> {(i+1)} </td>
+                                            <td> {block.id} </td>
+                                            <td> {block.description} </td>
+                                            <td> {block.startDate} </td>
+                                            <td> {block.endDate} </td>
+                                            <td> {block.progress} </td>
+                                            <td>
+                                                <button className='btn btn-warning'>
+                                                    <i className='fa-solid fa-edit'></i>
+                                                </button>
+
+                                                <button className='btn btn-danger'>
+                                                    <i className='fa-solid fa-trash'></i>
+                                                </button>
+
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
             <div className='modal fade' id='modalBlocks'>

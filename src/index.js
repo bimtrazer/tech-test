@@ -1,26 +1,26 @@
 const express = require('express');
 const mongoose = require('mongoose');
 require('dotenv').config();
+const cors = require('cors'); // Importar cors
 const blockRoutes = require("./routes/blocks");
 
-const app = express ();
+const app = express();
 const port = process.env.PORT || 4000;
 
-//middleware para las rutas
+// Middleware
+app.use(cors()); // Configurar CORS
 app.use(express.json());
 app.use('/api', blockRoutes);
 
-//rutas
+// Rutas
 app.get('/', (req, res) => {
-    res.send('welcome to my project')
-})
+    res.send('Welcome to my project');
+});
 
-//se crea coneccion con mongo DB Atlas
+// Conexión a MongoDB Atlas
 mongoose
     .connect(process.env.MONGODB_URL)
     .then(() => console.log('Conectado a la base de datos en MongoDB Atlas'))
-    .catch((error) => console.error(error)
-    )
+    .catch((error) => console.error('Error de conexión:', error));
 
-app.listen(port, () => console.log('servidor corriendo en puerto', port));
-
+app.listen(port, () => console.log(`Servidor corriendo en puerto ${port}`));
