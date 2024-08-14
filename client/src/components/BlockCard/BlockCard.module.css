@@ -1,12 +1,23 @@
 .container{
     border: solid 2px #E3F2FD;
     border-radius: 20px;
-    width: 90%;
+    width: 80%;
     height: 100%;
+    padding-bottom: 2px;
+    margin-bottom: 10px;
 }
 .buttonContainer{
     display: flex;
     justify-content: end;
-    width: 100%;
+    width: 95%;
     padding: 10px 15px 0 0;
+}
+.button{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
 }

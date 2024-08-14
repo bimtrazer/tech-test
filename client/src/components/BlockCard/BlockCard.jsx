@@ -20,6 +20,7 @@ const BlockCard = ({ block }) => {
         <button
           onClick={handleEditClick}
           title="Editar Bloque"
+          className={styles.button}
         >
           🖍
         </button>
