@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { updateBlock } from "../../services/api";
+import { deleteBlock, updateBlock } from "../../services/api";
 import Swal from "sweetalert2";
 import styles from "./EditBlockForm.module.css";
 
@@ -52,11 +52,23 @@ const EditBlockForm = ({ block, onClose }) => {
     });
   };
 
+  const onDelete=async(e)=>{
+    try {
+      await deleteBlock(block.id,token)
+    } catch (error) {
+      Swal.fire({
+        title: "Error!",
+        text: "No tenemos conexión :(",
+        icon: "error",
+        confirmButtonText: "Entendido",
+      });
+    }
+  }
   return (
     <div className={styles.container}>
       <div className={styles.popup}>
         <div className={styles.contentButton}>
-          <button title="Eliminar bloque" className={styles.buttonAux}>🗑</button>
+          <button title="Eliminar bloque" className={styles.buttonAux} onClick={(e)=>{onDelete()}}>🗑</button>
           <button type="button" title="Cerrar" onClick={onClose} className={styles.buttonAux}>
             X
           </button>
