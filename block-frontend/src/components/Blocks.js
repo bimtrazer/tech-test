@@ -5,16 +5,18 @@ import withReactContent from 'sweetalert2-react-content';
 import { mostrar_alerta } from '../functions';
 
 const Blocks = () => {
-    //se programan todos los hooks
+    // Se programan todos los hooks
     const url = 'http://localhost:4000/api/blocks';
-    const [blocks, setBlocks] = useState([]); //trae todos los bloques de la bd
+    const [blocks, setBlocks] = useState([]); // Trae todos los bloques de la BD
     const [id, setId] = useState('');
     const [description, setDescription] = useState('');
     const [startDate, setStartDate] = useState('');
-    const [endDate, setEndDate] = useState(''); // Corrección en el nombre de la variable
+    const [endDate, setEndDate] = useState('');
     const [progress, setProgress] = useState('');
+    const [opcion, setOpcion] = useState('');
+    const [title, setTitle] = useState('');
 
-    //hook de efecto para que al renderizar la página, se muestren todos los bloques
+    // Hook de efecto para que al renderizar la página, se muestren todos los bloques
     useEffect(() => {
         getBlocks();
     }, []);
@@ -28,13 +30,33 @@ const Blocks = () => {
         }
     }
 
+    // Funcionalidades para settear los nuevos bloques desde el modal
+    const openModal = (opcion, id = '', description = '', startDate = '', endDate = '', progress = '') => {
+        setId(id);
+        setDescription(description);
+        setStartDate(startDate);
+        setEndDate(endDate);
+        setProgress(progress);
+        setOpcion(opcion);
+
+        if (opcion === 1) {
+            setTitle('Agregar bloque');
+        } else if (opcion === 2) {
+            setTitle('Editar bloque');
+        }
+
+        window.setTimeout(() => {
+            document.getElementById('description').focus();
+        }, 500);
+    }
+
     return (
         <div className='App'>
             <div className='container-fluid'>
                 <div className='row mt-3'>
                     <div className='col-md-4 offset-md-4'>
                         <div className='d-grid mx-auto'>
-                            <button className='btn btn-dark' data-bs-toggle='modal' data-bs-target='#modalBlocks'>
+                            <button onClick={() => openModal(1)} className='btn btn-dark' data-bs-toggle='modal' data-bs-target='#modalBlocks'>
                                 <i className='fa-solid fa-circle-plus'></i> Crear block
                             </button>
                         </div>
@@ -51,7 +73,7 @@ const Blocks = () => {
 
                                 <tbody className='table-group-divider'>
                                     {blocks.map((block, i) => (
-                                        <tr key={block.id} >
+                                        <tr key={block.id}>
                                             <td> {(i + 1)} </td>
                                             <td> {block.id} </td>
                                             <td> {block.description} </td>
@@ -59,7 +81,7 @@ const Blocks = () => {
                                             <td> {block.endDate} </td>
                                             <td> {block.progress} </td>
                                             <td>
-                                                <button className='btn btn-warning'>
+                                                <button onClick={() => openModal(2, block.id, block.description, block.startDate, block.endDate, block.progress)} className='btn btn-warning' data-bs-toggle='modal' data-bs-target='#modalBlocks'>
                                                     <i className='fa-solid fa-edit'></i>
                                                 </button>
 
@@ -73,7 +95,6 @@ const Blocks = () => {
                             </table>
                         </div>
                     </div>
-
                 </div>
             </div>
 
@@ -82,12 +103,18 @@ const Blocks = () => {
                 <div className='modal-dialog'>
                     <div className='modal-content'>
                         <div className='modal-header'>
-                            <label className='h5'> {description} </label>
+                            <label className='h5'> {title} </label> {/* Se cambió description por title */}
                             <button type='button' className='btn-close' data-bs-dismiss='modal' aria-label='close'></button>
                         </div>
 
                         <div className='modal-body'>
                             <input type='hidden' id='id'></input>
+                            <div className='input-group mb-3'>
+                                <span className='input-group-text'> <i className='fa-solid fa-id-card-clip'></i> </span>
+                                <input type='text' id='id' className='form-control' placeholder='id del bloque' value={id}
+                                    onChange={(e) => setId(e.target.value)}></input>
+                            </div>
+
                             <div className='input-group mb-3'>
                                 <span className='input-group-text'> <i className='fa-solid fa-comment'></i> </span>
                                 <input type='text' id='description' className='form-control' placeholder='descripcion' value={description}
@@ -122,7 +149,7 @@ const Blocks = () => {
                         <div className='modal-footer'>
                             <button type='button' className='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
                         </div>
-                        
+
                     </div>
 
                 </div>
