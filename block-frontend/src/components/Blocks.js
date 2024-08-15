@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
 import { mostrar_alerta } from '../functions';
+import withReactContent from 'sweetalert2-react-content';
+import Swal from 'sweetalert2';
 
 const Blocks = () => {
     // Se programan todos los hooks
@@ -50,6 +50,69 @@ const Blocks = () => {
         }, 500);
     }
 
+    //validamos que los campos no estén vacíos
+    const validar = () => {
+        let parametros;
+        let metodo;
+    
+        if (description.trim() === '') {
+            mostrar_alerta('Escribí una descripción para el bloque', 'warning');
+        } else if (startDate.trim() === '') {
+            mostrar_alerta('Ingresá hora de creación para el bloque', 'warning');
+        } else if (endDate.trim() === '') {
+            mostrar_alerta('Escribí una hora de finalización para el bloque', 'warning');
+        } else if (String(progress).trim() === '') {
+            mostrar_alerta('Escribí un progreso para el bloque', 'warning');
+        } else {
+            parametros = {
+                id: id.trim(),
+                description: description.trim(),
+                startDate: startDate.trim(),
+                endDate: endDate.trim(),
+                progress: String(progress).trim()
+            };
+    
+            metodo = opcion === 1 ? 'POST' : 'PUT';
+    
+            enviarSolicitud(metodo, parametros);    
+        }
+    }
+
+    const enviarSolicitud = async(metodo, parametros) =>{
+        await axios({method:metodo, url:url, data:parametros}).then(function(respuesta){
+            let tipo = respuesta.data[0];
+            let mensaje = respuesta.data[1];
+            mostrar_alerta(mensaje, tipo);
+
+            if(tipo === 'success'){
+                document.getElementById('btncerrar').click();
+                getBlocks();
+            }
+        })
+        .catch(function(error){
+            mostrar_alerta('Error en el envío de la solicitud', 'error');
+            console.log(error);            
+        }
+    )}
+
+
+    const eliminarBloque = (id, description) =>{
+        const MySwal = withReactContent(Swal);
+        MySwal.fire({
+            title:'¿Estás seguro de eliminar el bloque ' + description + '?',
+            icon:'question', text:'Esta acción es irreversible',
+            showCancelButton:true, confirmButtonText:'Sí, eliminar', cancelButtonText:'Cancelar'
+        }).then((resultado)=>{
+            if(resultado.isConfirmed){
+                setId(id);
+                enviarSolicitud('DELETE', {id:id});
+            }
+            else{
+                mostrar_alerta('El bloque NO se eliminó', 'info');
+            }
+        })
+
+    }
     return (
         <div className='App'>
             <div className='container-fluid'>
@@ -85,7 +148,7 @@ const Blocks = () => {
                                                     <i className='fa-solid fa-edit'></i>
                                                 </button>
 
-                                                <button className='btn btn-danger'>
+                                                <button onClick={() => eliminarBloque(block.id, block.description)} className='btn btn-danger'>
                                                     <i className='fa-solid fa-trash'></i>
                                                 </button>
                                             </td>
@@ -103,7 +166,7 @@ const Blocks = () => {
                 <div className='modal-dialog'>
                     <div className='modal-content'>
                         <div className='modal-header'>
-                            <label className='h5'> {title} </label> {/* Se cambió description por title */}
+                            <label className='h5'> {title} </label> 
                             <button type='button' className='btn-close' data-bs-dismiss='modal' aria-label='close'></button>
                         </div>
 
@@ -140,14 +203,14 @@ const Blocks = () => {
                             </div>
 
                             <div className='d-grid col-6 mx-auto'>
-                                <button className='btn btn-success'>
+                                <button onClick={()=>validar()} className='btn btn-success'>
                                     <i className='fa-solid fa-floppy-disk'></i> Guardar
                                 </button>
                             </div>
                         </div>
 
                         <div className='modal-footer'>
-                            <button type='button' className='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
+                            <button type='button' id='btncerrar' className='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
                         </div>
 
                     </div>
