@@ -50,9 +50,9 @@ const Blocks = () => {
                                 </thead>
 
                                 <tbody className='table-group-divider'>
-                                    {blocks.map((block, i)=>(
-                                        <tr key= {block.id} >
-                                            <td> {(i+1)} </td>
+                                    {blocks.map((block, i) => (
+                                        <tr key={block.id} >
+                                            <td> {(i + 1)} </td>
                                             <td> {block.id} </td>
                                             <td> {block.description} </td>
                                             <td> {block.startDate} </td>
@@ -66,7 +66,6 @@ const Blocks = () => {
                                                 <button className='btn btn-danger'>
                                                     <i className='fa-solid fa-trash'></i>
                                                 </button>
-
                                             </td>
                                         </tr>
                                     ))}
@@ -78,8 +77,55 @@ const Blocks = () => {
                 </div>
             </div>
 
-            <div className='modal fade' id='modalBlocks'>
+            <div id='modalBlocks' className='modal fade' aria-hidden='true'>
                 {/* Contenido del modal */}
+                <div className='modal-dialog'>
+                    <div className='modal-content'>
+                        <div className='modal-header'>
+                            <label className='h5'> {description} </label>
+                            <button type='button' className='btn-close' data-bs-dismiss='modal' aria-label='close'></button>
+                        </div>
+
+                        <div className='modal-body'>
+                            <input type='hidden' id='id'></input>
+                            <div className='input-group mb-3'>
+                                <span className='input-group-text'> <i className='fa-solid fa-comment'></i> </span>
+                                <input type='text' id='description' className='form-control' placeholder='descripcion' value={description}
+                                    onChange={(e) => setDescription(e.target.value)}></input>
+                            </div>
+
+                            <div className='input-group mb-3'>
+                                <span className='input-group-text'> <i className='fa-regular fa-clock'></i> </span>
+                                <input type='text' id='startDate' className='form-control' placeholder='hora de creación' value={startDate}
+                                    onChange={(e) => setStartDate(e.target.value)}></input>
+                            </div>
+
+                            <div className='input-group mb-3'>
+                                <span className='input-group-text'> <i className='fa-solid fa-clock'></i> </span>
+                                <input type='text' id='endDate' className='form-control' placeholder='hora de finalización' value={endDate}
+                                    onChange={(e) => setEndDate(e.target.value)}></input>
+                            </div>
+
+                            <div className='input-group mb-3'>
+                                <span className='input-group-text'> <i className='fa-solid fa-road-barrier'></i> </span>
+                                <input type='text' id='progress' className='form-control' placeholder='progreso' value={progress}
+                                    onChange={(e) => setProgress(e.target.value)}></input>
+                            </div>
+
+                            <div className='d-grid col-6 mx-auto'>
+                                <button className='btn btn-success'>
+                                    <i className='fa-solid fa-floppy-disk'></i> Guardar
+                                </button>
+                            </div>
+                        </div>
+
+                        <div className='modal-footer'>
+                            <button type='button' className='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
+                        </div>
+                        
+                    </div>
+
+                </div>
             </div>
         </div>
     )
