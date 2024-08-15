@@ -55,15 +55,15 @@ const EditBlockForm = ({ block, onClose }) => {
   return (
     <div className={styles.container}>
       <div className={styles.popup}>
-        <div>
-          <button title="Eliminar bloque">🗑</button>
-          <button type="button" title="Cerrar" onClick={onClose}>
+        <div className={styles.contentButton}>
+          <button title="Eliminar bloque" className={styles.buttonAux}>🗑</button>
+          <button type="button" title="Cerrar" onClick={onClose} className={styles.buttonAux}>
             X
           </button>
         </div>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label>Description</label>
+        <form onSubmit={handleSubmit} className={styles.form}>
+          <div className={styles.contInputs}>
+            <label className={styles.label}>Description</label>
             <input
               type="text"
               value={editedBlock.description}
@@ -75,28 +75,30 @@ const EditBlockForm = ({ block, onClose }) => {
               className={styles.description}
             />
           </div>
-          <div>
-            <label>Start Date</label>
+          <div className={styles.contInputs}>
+            <label className={styles.label}>Start Date</label>
             <input
               type="date"
               value={editedBlock.startDate}
               onChange={(e) => onChange(e)}
               required
               name="startDate"
+              className={styles.input}
             />
           </div>
-          <div>
-            <label>End Date</label>
+          <div className={styles.contInputs}>
+            <label className={styles.label}>End Date</label>
             <input
               type="date"
               value={editedBlock.endDate}
               onChange={(e) => onChange(e)}
               required
               name="endDate"
+              className={styles.input}
             />
           </div>
-          <div>
-            <label>Progress</label>
+          <div className={styles.contInputs}>
+            <label className={styles.label}>Progress</label>
             <input
               type="number"
               value={editedBlock.progress}
@@ -105,9 +107,10 @@ const EditBlockForm = ({ block, onClose }) => {
               max="100"
               required
               name="progress"
+              className={styles.input}
             />
           </div>
-          <button type="submit">Update Block</button>
+          <button type="submit" className={styles.button}>Update Block</button>
         </form>
       </div>
     </div>
