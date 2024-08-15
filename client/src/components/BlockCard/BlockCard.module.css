@@ -1,23 +1,45 @@
-.container{
-    border: solid 2px #E3F2FD;
-    border-radius: 20px;
-    width: 80%;
-    height: 100%;
-    padding-bottom: 2px;
-    margin-bottom: 10px;
+.container {
+  border: solid 2px #e3f2fd;
+  border-radius: 20px;
+  width: 80%;
+  height: 100%;
+  padding-bottom: 2px;
+  margin-bottom: 10px;
 }
-.buttonContainer{
-    display: flex;
-    justify-content: end;
-    width: 95%;
-    padding: 10px 15px 0 0;
+.buttonContainer {
+  display: flex;
+  justify-content: end;
+  width: 95%;
+  padding: 10px 15px 0 0;
 }
-.button{
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    align-items: center;
-    width: 30px;
-    height: 30px;
-    background-color: transparent;
+.button {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+}
+.progressContainer {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+  width: 80%;
+  margin-left: 10%;
+}
+
+.progressBar {
+  width: 100%;
+  height: 20px;
+  margin-right: 8px;
+}
+.description {
+  margin: 10px;
+  font-size: 25px;
+}
+.date {
+  font-size: 18px;
+    font-weight: 600;
 }
