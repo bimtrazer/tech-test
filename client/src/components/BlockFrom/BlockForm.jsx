@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { createBlock } from "../../services/api";
 import Swal from "sweetalert2";
+import styles from "./BlockForm.module.css";
 const BlockForm = () => {
   const [token, setToken] = useState("token");
   const [newBlock, setNewBlock] = useState({
@@ -14,7 +15,6 @@ const BlockForm = () => {
 
     const { startDate, endDate } = newBlock;
 
-    // Validación de fechas
     if (new Date(startDate) >= new Date(endDate)) {
       Swal.fire({
         title: "Error!",
@@ -51,9 +51,9 @@ const BlockForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>Description</label>
+    <form onSubmit={handleSubmit} className={styles.form}>
+      <div className={styles.contInputs}>
+        <label className={styles.label}>Description</label>
         <input
           type="text"
           value={newBlock.description}
@@ -61,30 +61,34 @@ const BlockForm = () => {
           maxLength="40"
           required
           name="description"
+          className={styles.input}
+          placeholder="ingrese su descripcion"
         />
       </div>
-      <div>
-        <label>Start Date</label>
+      <div className={styles.contInputs}>
+        <label className={styles.label}>Start Date</label>
         <input
           type="date"
           value={newBlock.startDate}
           onChange={(e) => onChange(e)}
           required
           name="startDate"
+          className={styles.input}
         />
       </div>
-      <div>
-        <label>End Date</label>
+      <div className={styles.contInputs}>
+        <label className={styles.label}>End Date</label>
         <input
           type="date"
           value={newBlock.endDate}
           onChange={(e) => onChange(e)}
           required
           name="endDate"
+          className={styles.input}
         />
       </div>
-      <div>
-        <label>Progress</label>
+      <div className={styles.contInputs}>
+        <label className={styles.label}>Progress</label>
         <input
           type="number"
           value={newBlock.progress}
@@ -93,9 +97,10 @@ const BlockForm = () => {
           max="100"
           required
           name="progress"
+          className={styles.input}
         />
       </div>
-      <button type="submit">Save Block</button>
+      <button type="submit" className={styles.button}>Save Block</button>
     </form>
   );
 };
