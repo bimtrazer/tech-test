@@ -3,6 +3,7 @@ import { INewBlock, INewBlockError } from "@/interface/block.interface";
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { validateBlock } from "@/utils/validations";
+import Swal from "sweetalert2";
 
 function FormPage() {
   const initialData = {
@@ -33,11 +34,18 @@ function FormPage() {
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    e?.preventDefault();
 
     const validationErrors = validateBlock(newBlock);
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
+      Swal.fire({
+        title: "Error en el formulario",
+        text: "Asegúrate de completar correctamente todos los campos del formulario.",
+        icon: "error",
+        confirmButtonText: "Aceptar",
+        confirmButtonColor: "#c36961",
+      });
       return;
     }
 
@@ -60,11 +68,26 @@ function FormPage() {
       const data = await res.json();
 
       if (res.status === 200) {
-        router.push("/");
-        router.refresh();
+        Swal.fire({
+          title: "Excelente",
+          text: "El bloque ha sido creado correctamente.",
+          icon: "success",
+          confirmButtonText: "Aceptar",
+          confirmButtonColor: "#609e87",
+        }).then((res) => {
+          if (res.isConfirmed) {
+            router.push("/");
+            router.refresh();
+          }
+        });
       }
     } catch (error: any) {
-      console.error("Error en el createBlock: ", error.message);
+      Swal.fire({
+        title: "Error de información",
+        text: error.message,
+        icon: "error",
+        confirmButtonColor: "#c36961",
+      });
     }
   };
 
@@ -79,21 +102,64 @@ function FormPage() {
       });
       const data = await res.json();
       if (res.status === 200) {
-        router.push("/");
-        router.refresh();
+        Swal.fire({
+          title: "Excelente",
+          text: "El bloque ha sido actualizado correctamente.",
+          icon: "success",
+          confirmButtonText: "Aceptar",
+          confirmButtonColor: "#609e87",
+        }).then((res) => {
+          if (res.isConfirmed) {
+            router.push("/");
+            router.refresh();
+          }
+        });
       }
     } catch (error: any) {
-      console.error("Error en el updateBlock: ", error.message);
+      Swal.fire({
+        title: "Error de información",
+        text: error.message,
+        icon: "error",
+        confirmButtonColor: "#c36961",
+      });
     }
   };
 
   const handleDelete = async () => {
-    if (window.confirm("¿Estás seguro que deseas eliminar esta tarea?")) {
-      const res = await fetch(`/api/blocks/${params.id}`, {
-        method: "DELETE",
-      });
-      router.push("/");
-      router.refresh();
+    const result = await Swal.fire({
+      title: "¿Estás seguro?",
+      text: "No podrás revertir esto.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Sí, eliminar",
+      confirmButtonColor: "#609e87",
+      cancelButtonText: "Cancelar",
+      cancelButtonColor: "#c36961",
+    });
+
+    if (result.isConfirmed) {
+      try {
+        const res = await fetch(`/api/blocks/${params.id}`, {
+          method: "DELETE",
+        });
+        if (res.status === 200) {
+          Swal.fire(
+            "Eliminado",
+            "El bloque ha sido eliminado.",
+            "success"
+          ).then(() => {
+            router.push("/");
+            router.refresh();
+          });
+        }
+      } catch (error: any) {
+        Swal.fire({
+          title: "Error de información",
+          text: error.message,
+          icon: "error",
+          confirmButtonColor: "#c36961",
+        });
+      }
     }
   };
 
@@ -116,7 +182,7 @@ function FormPage() {
           ) : (
             <button
               type="button"
-              className="bg-red-300 px-3 py-1 rounded-md"
+              className="bg-red-500 px-3 py-1 rounded-md"
               onClick={handleDelete}>
               Eliminar
             </button>
@@ -128,7 +194,7 @@ function FormPage() {
           id="description"
           placeholder="Descripción"
           className={`bg-gray-800 border-2 w-full p-4 rounded-lg my-4 focus:outline-none
-            ${errors.description ? "border-red-300" : ""}
+            ${errors.description ? "border-red-400" : ""}
             ${!!params.id && "text-gray-600 cursor-auto"}`}
           onChange={handleChange}
           value={newBlock.description}
@@ -140,7 +206,7 @@ function FormPage() {
           id="startDate"
           placeholder="Fecha de inicio"
           className={`bg-gray-800 border-2 w-full p-4 rounded-lg my-4 focus:outline-none
-            ${errors.startDate ? "border-red-300" : ""}`}
+            ${errors.startDate ? "border-red-400" : ""}`}
           onChange={handleChange}
           value={newBlock.startDate}
           max={newBlock.endDate || ""}
@@ -151,7 +217,7 @@ function FormPage() {
           id="endDate"
           placeholder="Fecha de finalización"
           className={`bg-gray-800 border-2 w-full p-4 rounded-lg my-4 focus:outline-none
-            ${errors.endDate ? "border-red-300" : ""}`}
+            ${errors.endDate ? "border-red-400" : ""}`}
           onChange={handleChange}
           value={newBlock.endDate}
           min={newBlock.startDate || ""}
@@ -162,7 +228,7 @@ function FormPage() {
           id="progress"
           placeholder="Progreso"
           className={`bg-gray-800 border-2 w-full p-4 rounded-lg my-4 focus:outline-none
-            ${errors.progress ? "border-red-500" : ""}`}
+            ${errors.progress ? "border-red-400" : ""}`}
           onChange={handleChange}
           value={newBlock.progress}
         />
