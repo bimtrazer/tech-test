@@ -8,10 +8,7 @@ export async function connectDB() {
   if (dbCon.isConnected) return;
 
   try {
-    const db = await mongoose.connect(
-      "mongodb+srv://marcoslombardo28:hdHKYo82mJFPggJy@techtest.1f6yd.mongodb.net/?retryWrites=true&w=majority&appName=techtest"
-    );
-    console.log(db.connection.db?.databaseName);
+    const db = await mongoose.connect(process.env.MONGODB_URI || "");
 
     dbCon.isConnected = db.connections[0].readyState === 1;
   } catch (error) {
