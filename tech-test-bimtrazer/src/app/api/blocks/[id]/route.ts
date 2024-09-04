@@ -7,22 +7,15 @@ interface Params {
 }
 
 // Método GET by id => Muestra el bloque seleccionado
-export async function GET({ params }: { params: Params }) {
+export async function GET(request: Request, { params }: { params: Params }) {
   try {
-    connectDB();
+    await connectDB();
     const blockFound = await Block.findById(params.id);
 
     if (!blockFound)
-      return NextResponse.json(
-        {
-          message: "Block not found",
-        },
-        {
-          status: 404,
-        }
-      );
+      return NextResponse.json({ message: "Block not found" }, { status: 404 });
 
-    return NextResponse.json(blockFound);
+    return NextResponse.json(blockFound, { status: 200 });
   } catch (error: any) {
     return NextResponse.json(error.message, { status: 400 });
   }
@@ -31,33 +24,30 @@ export async function GET({ params }: { params: Params }) {
 // Método PUT by id => Edita el bloque seleccionado
 export async function PUT(request: Request, { params }: { params: Params }) {
   try {
+    await connectDB();
     const data = await request.json();
     const blockUpdated = await Block.findByIdAndUpdate(params.id, data, {
       new: true,
     });
 
-    return NextResponse.json(blockUpdated);
+    if (!blockUpdated)
+      return NextResponse.json({ message: "Block not found" }, { status: 404 });
+
+    return NextResponse.json(blockUpdated, { status: 200 });
   } catch (error: any) {
     return NextResponse.json(error.message, { status: 400 });
   }
 }
 
 // Método DELETE by id => Elimina el bloque seleccionado
-export async function DELETE({ params }: { params: Params }) {
+export async function DELETE(request: Request, { params }: { params: Params }) {
   try {
     const blockDelete = await Block.findByIdAndDelete(params.id);
 
     if (!blockDelete)
-      return NextResponse.json(
-        {
-          message: "Block not found",
-        },
-        {
-          status: 404,
-        }
-      );
+      return NextResponse.json({ message: "Block not found" }, { status: 404 });
 
-    return NextResponse.json(blockDelete);
+    return NextResponse.json(blockDelete, { status: 200 });
   } catch (error: any) {
     return NextResponse.json(error.message, {
       status: 400,
