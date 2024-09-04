@@ -12,10 +12,15 @@ async function loadBlocks(): Promise<IBlock[]> {
 async function Home(): Promise<JSX.Element> {
   const blocks: IBlock[] = await loadBlocks();
   return (
-    <div className="grid grid-cols-3 gap-2">
-      {blocks.map((block) => (
-        <BlockCard block={block} key={block._id} />
-      ))}
+    <div>
+      <h1 className="text-3xl font-bold text-center mb-8">
+        Listado de Bloques
+      </h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {blocks.map((block) => (
+          <BlockCard block={block} key={block._id} />
+        ))}
+      </div>
     </div>
   );
 }

@@ -1,7 +1,8 @@
 "use client";
-import { INewBlock } from "@/interface/block.interface";
+import { INewBlock, INewBlockError } from "@/interface/block.interface";
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
+import { validateBlock } from "@/utils/validations";
 
 function FormPage() {
   const initialData = {
@@ -10,7 +11,9 @@ function FormPage() {
     endDate: "",
     progress: 0,
   };
+
   const [newBlock, setNewBlock] = useState<INewBlock>(initialData);
+  const [errors, setErrors] = useState<INewBlockError>(initialData);
   const router = useRouter();
   const params = useParams();
 
@@ -27,6 +30,22 @@ function FormPage() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewBlock({ ...newBlock, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const validationErrors = validateBlock(newBlock);
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
+    if (!params.id) {
+      await createBlock();
+    } else {
+      updateBlock();
+    }
   };
 
   const createBlock = async () => {
@@ -68,15 +87,6 @@ function FormPage() {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!params.id) {
-      await createBlock();
-    } else {
-      updateBlock();
-    }
-  };
-
   const handleDelete = async () => {
     if (window.confirm("¿Estás seguro que deseas eliminar esta tarea?")) {
       const res = await fetch(`/api/blocks/${params.id}`, {
@@ -96,51 +106,63 @@ function FormPage() {
 
   return (
     <div className="h-[calc(100vh-7rem)] flex justify-center items-center">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} autoComplete="off">
         <header className="flex justify-between">
           <h1 className="font-bold text-xl">
             {!params.id ? "Crear Bloque" : "Editar Bloque"}
           </h1>
-          <button
-            type="button"
-            className="bg-red-600 px-3 py-1 rounded-md"
-            onClick={handleDelete}>
-            Eliminar
-          </button>
+          {!params.id ? (
+            ""
+          ) : (
+            <button
+              type="button"
+              className="bg-red-300 px-3 py-1 rounded-md"
+              onClick={handleDelete}>
+              Eliminar
+            </button>
+          )}
         </header>
         <input
           type="text"
           name="description"
           id="description"
           placeholder="Descripción"
-          className="bg-gray-800 border-2 w-full p-4 rounded-lg my-4"
+          className={`bg-gray-800 border-2 w-full p-4 rounded-lg my-4 focus:outline-none
+            ${errors.description ? "border-red-300" : ""}
+            ${!!params.id && "text-gray-600 cursor-auto"}`}
           onChange={handleChange}
           value={newBlock.description}
+          readOnly={!!params.id}
         />
         <input
           type="date"
           name="startDate"
           id="startDate"
           placeholder="Fecha de inicio"
-          className="bg-gray-800 border-2 w-full p-4 rounded-lg my-4"
+          className={`bg-gray-800 border-2 w-full p-4 rounded-lg my-4 focus:outline-none
+            ${errors.startDate ? "border-red-300" : ""}`}
           onChange={handleChange}
           value={newBlock.startDate}
+          max={newBlock.endDate || ""}
         />
         <input
           type="date"
           name="endDate"
           id="endDate"
           placeholder="Fecha de finalización"
-          className="bg-gray-800 border-2 w-full p-4 rounded-lg my-4"
+          className={`bg-gray-800 border-2 w-full p-4 rounded-lg my-4 focus:outline-none
+            ${errors.endDate ? "border-red-300" : ""}`}
           onChange={handleChange}
           value={newBlock.endDate}
+          min={newBlock.startDate || ""}
         />
         <input
           type="number"
           name="progress"
           id="progress"
           placeholder="Progreso"
-          className="bg-gray-800 border-2 w-full p-4 rounded-lg my-4"
+          className={`bg-gray-800 border-2 w-full p-4 rounded-lg my-4 focus:outline-none
+            ${errors.progress ? "border-red-500" : ""}`}
           onChange={handleChange}
           value={newBlock.progress}
         />
